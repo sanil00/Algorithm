@@ -2,24 +2,23 @@ function solution(tickets) {
     let startIndex = ""
     const visited = []
     tickets.sort()
-    console.log(tickets)
     tickets.find((value, index) => {
         startIndex = index
         return value[0] === "ICN"
     })
-    const queue = [tickets[startIndex][1], visited]
+    const queue = [tickets[startIndex][1]]
     visited[startIndex] = true
     var answer = [tickets[startIndex][0], tickets[startIndex][1]]
     while (queue.length) {
         const destination = queue.shift()
-        tickets.map(([currentDest, nextDest], index) => {
-            if (currentDest === destination && !visited[index]) {
-                console.log(nextDest)
-                queue.push(nextDest)
-                answer.push(nextDest)
-                visited[index] = true
+        for (let i = 0; i < tickets.length; i++) {
+            if (tickets[i][0] === destination && !visited[i]) {
+                queue.push(tickets[i][1])
+                answer.push(tickets[i][1])
+                visited[i] = true
+                break
             }
-        })
+        }
     }
 
     return answer
